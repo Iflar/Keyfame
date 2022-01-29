@@ -41,12 +41,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AnimatorProfileModels\AnimatorProfileCreate.cs" />
+    <Compile Include="AnimatorProfileModels\AnimatorProfileDetail.cs" />
+    <Compile Include="AnimatorProfileModels\AnimatorProfileEdit.cs" />
+    <Compile Include="AnimatorProfileModels\AnimatorProfileListItem.cs" />
+    <Compile Include="AnimRequestModels\AnimRequestCreate.cs" />
+    <Compile Include="AnimRequestModels\AnimRequestDetail.cs" />
+    <Compile Include="AnimRequestModels\AnimRequestEdit.cs" />
+    <Compile Include="AnimRequestModels\AnimRequestListItem.cs" />
+    <Compile Include="ClientProfileModels\ClientProfileCreate.cs" />
+    <Compile Include="ClientProfileModels\ClientProfileDetail.cs" />
+    <Compile Include="ClientProfileModels\ClientProfileEdit.cs" />
+    <Compile Include="ClientProfileModels\ClientProfileListItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="AnimatorProfileModels\" />
-    <Folder Include="AnimRequestModels\" />
-    <Folder Include="ClientProfileModels\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

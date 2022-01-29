@@ -8,17 +8,16 @@ using System.Threading.Tasks;
 
 namespace Keyframe.Data
 {
+    public enum Progress
+    {
+        NotStarted,
+        Design,
+        Animatic,
+        Production,
+        FinalDraft
+    }
     public class AnimRequest
     {
-        [Key]
-        public int RequestId { get; set; }
-        public string Title { get; set; }
-        public string Description { get; set; }
-        public List<Uri> References { get; set; }
-        public DateTime DatePosted { get; set; }
-        public DateTime? DateAccepted { get; set; }
-        public DateTime? DateCompleted { get; set; }
-
         [ForeignKey(nameof(ClientId))]
         public int ClientId { get; set; }
         public virtual ClientProfile ClientProfile { get; set; }
@@ -27,6 +26,15 @@ namespace Keyframe.Data
         public int? AnimatorId { get; set; }
         public virtual AnimatorProfile AnimatorProfile { get; set; }
 
-      
+        public string Title { get; set; }
+        public string Description { get; set; }
+        public List<Uri> References { get; set; }
+        public Progress Progress { get; set; }
+        public DateTime DatePosted { get; set; }
+        public DateTime? DateAccepted { get; set; }
+        public DateTime? DateCompleted { get; set; }
+
+        public bool IsAccepted { get; set; }
+        public bool IsComplete { get; set; }
     }
 }

@@ -18,23 +18,28 @@ namespace Keyframe.Data
     }
     public class AnimRequest
     {
-        [ForeignKey(nameof(ClientId))]
-        public int ClientId { get; set; }
-        public virtual ClientProfile ClientProfile { get; set; }
+        [Key]
+        public int RequestId { get; set; }
 
-        [ForeignKey(nameof(AnimatorId))]
-        public int? AnimatorId { get; set; }
-        public virtual AnimatorProfile AnimatorProfile { get; set; }
-
+        [Required]
         public string Title { get; set; }
+        [Required]
         public string Description { get; set; }
-        public List<Uri> References { get; set; }
+        [Required]
+        public List<string> ImageURLs { get; set; }
         public Progress Progress { get; set; }
         public DateTime DatePosted { get; set; }
         public DateTime? DateAccepted { get; set; }
         public DateTime? DateCompleted { get; set; }
+        public string ResultURL { get; set; }
 
         public bool IsAccepted { get; set; }
         public bool IsComplete { get; set; }
+
+        public AnimRequest()
+        {
+            this.UserProfiles = new HashSet<UserProfile>();
+        }
+        public virtual ICollection<UserProfile> UserProfiles { get; set; }
     }
 }

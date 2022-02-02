@@ -32,8 +32,7 @@ namespace Keyframe.Data
             return new ApplicationDbContext();
         }
 
-        public DbSet<AnimatorProfile> Animators { get; set; }
-        public DbSet<ClientProfile> Clients { get; set; }
+        public DbSet<UserProfile> UsersProfiles { get; set; }
         public DbSet<AnimRequest> Requests { get; set; }
         protected override void OnModelCreating(DbModelBuilder builder)
         {
@@ -45,12 +44,6 @@ namespace Keyframe.Data
                 .Configurations
                 .Add(new IdentityUserLoginConfiguration())
                 .Add(new IdentityUserRoleConfiguration());
-
-            builder.Entity<AnimatorProfile>()
-                .HasMany(p => p.AcceptedRequests);
-
-            builder.Entity<ClientProfile>()
-                .HasMany(p => p.PostedRequests);
         }
     }
      public class IdentityUserLoginConfiguration : EntityTypeConfiguration<IdentityUserLogin>

@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Keyframe.Models.ClientProfileModels
+namespace Keyframe.Services
 {
-    public class ClientProfileListItem
+    public class UserProfileService
     {
     }
 }

@@ -18,9 +18,12 @@ namespace KeyframeMVC.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        ApplicationDbContext context;
+
 
         public AccountController()
         {
+            context = new ApplicationDbContext();
         }
 
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
@@ -171,6 +174,37 @@ namespace KeyframeMVC.Controllers
 
             // If we got this far, something failed, redisplay form
             return View(model);
+        }
+
+        // new methods
+
+        [AllowAnonymous]
+        [HttpGet]
+        public ActionResult RegisterRole()
+        {
+            ViewBag.Name = new SelectList(context.Roles.ToList(), "Name", "Name");
+            ViewBag.UserName = new SelectList(context.Users.ToList(), "UserName", "UserName");
+            return View();
+        }
+
+        //
+        // POST: /Acount/Register
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> RegisterRole(RegisterViewModel model, ApplicationUser user)
+        {
+
+            var userId = context.Users.Where(i => i.UserName == user.UserName).Select(s => s.Id);
+            string updateId = "";
+            foreach (var i in userId)
+            {
+                updateId = i.ToString();
+            }
+            //Assign Role To User Here
+            await this.UserManager.AddToRoleAsync(updateId, model.Name);
+
+            return RedirectToAction("Index", "Home");
         }
 
         //

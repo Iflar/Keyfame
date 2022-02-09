@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Keyframe.Data;
+using Keyframe.Models.AnimRequestModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,5 +10,100 @@ namespace Keyframe.Services
 {
     public class AnimRequestService
     {
+        private readonly Guid _userId;
+
+        public AnimRequestService(Guid userId)
+        {
+            _userId = userId;
+        }
+
+        public bool CreateRequest(AnimRequestCreate model)
+        {
+            
+            var entity =
+                new AnimRequest()
+                {
+                    OwnerId = _userId,
+                    Title = model.Title,
+                    Description = model.Description,
+                    ImageURLs = model.ImageURLs
+                };
+            using (var ctx = new ApplicationDbContext())
+            {
+                ctx.Requests.Add(entity);
+                return ctx.SaveChanges() == 1;
+            }
+        }
+        public IEnumerable<AnimRequestListItem> GetRequests()
+        {
+            using (var ctx = new ApplicationDbContext())
+            {
+                var query =
+                    ctx
+                        .Requests
+                        .Where(e => e.OwnerId == _userId)
+                        .Select(
+                            e =>
+                                new AnimRequestListItem
+                                {
+                                    Title = e.Title,
+                                    Progress = e.Progress,
+                                    DatePosted = e.DatePosted,
+                                    DateCompleted = e.DateCompleted
+                                }
+                        );
+
+                return query.ToArray();
+            }
+        }
+        public AnimRequestDetail GetRequestById(int id)
+        {
+            using (var ctx = new ApplicationDbContext())
+            {
+                var entity =
+                    ctx
+                        .Requests
+                        .Single(e => e.RequestId == id && e.OwnerId == _userId);
+                return
+                    new AnimRequestDetail
+                    {
+                        Title = entity.Title,
+                        Description = entity.Description,
+                        Progress = entity.Progress,
+                        DatePosted = entity.DatePosted,
+                        DateAccepted = entity.DateAccepted,
+                        DateCompleted = entity.DateCompleted
+                    };
+            }
+        }
+        public bool UpdateRequest(AnimRequestEdit model)
+        {
+            using (var ctx = new ApplicationDbContext())
+            {
+                var entity =
+                    ctx
+                        .Requests
+                        .Single(e => e.RequestId == model.RequestId && e.OwnerId == _userId);
+                entity.Progress = model.Progress;
+                entity.DateAccepted = model.DateAccepted;
+                entity.DateCompleted = model.DateCompleted;
+
+                return ctx.SaveChanges() == 1;
+            }
+        }
+        public bool DeleteUser(int userId)
+        {
+            using (var ctx = new ApplicationDbContext())
+            {
+                var entity =
+                    ctx
+                        .Requests
+                        .Single(e => e.RequestId == userId && e.OwnerId == _userId);
+
+                ctx.Requests.Remove(entity);
+
+                return ctx.SaveChanges() == 1;
+            }
+        }
     }
 }

@@ -172,6 +172,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\RoleController.cs" />
+    <Compile Include="Controllers\UserProfileController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -244,6 +245,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\AnimRequest\" />
+    <Folder Include="Views\UserProfile\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -262,6 +264,14 @@
     <ProjectReference Include="..\Keyframe.Data\Keyframe.Data.csproj">
       <Project>{87BFCB49-F03C-4456-898F-AAD2A2F7DA2A}</Project>
       <Name>Keyframe.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Keyframe.Models\Keyframe.Models.csproj">
+      <Project>{8794F5C9-7C48-4EA1-9B31-21A5B964DD3E}</Project>
+      <Name>Keyframe.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Keyframe.Services\Keyframe.Services.csproj">
+      <Project>{3FD4D389-2EA9-48EC-A0E5-0D68769952BF}</Project>
+      <Name>Keyframe.Services</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

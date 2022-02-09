@@ -20,6 +20,7 @@ namespace Keyframe.Data
     {
         [Key]
         public int RequestId { get; set; }
+        public Guid OwnerId { get; set; }
 
         [Required]
         public string Title { get; set; }

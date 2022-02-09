@@ -8,5 +8,9 @@ namespace Keyframe.Models.UserProfileModels
 {
     public class UserProfileDetail
     {
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string Biography { get; set; }
+        public string ProfilePictureURL { get; set; }
     }
 }

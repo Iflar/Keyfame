@@ -10,10 +10,20 @@ using System.Web.Mvc;
 
 namespace KeyframeMVC.Controllers
 {
+    [Authorize]
     public class UserProfileController : Controller
     {
         // GET: UserProfile
         public ActionResult Index()
+        {
+            var userId = Guid.Parse(User.Identity.GetUserId());
+            var service = new UserProfileService(userId);
+            var model = service.GetUsers();
+
+            return View(model);
+        }
+
+        public ActionResult Create()
         {
             return View();
         }
@@ -49,6 +59,76 @@ namespace KeyframeMVC.Controllers
             var userId = Guid.Parse(User.Identity.GetUserId());
             var service = new UserProfileService(userId);
             return service;
+        }
+
+        public ActionResult Edit(int id)
+        {
+            var service = CreateUserProfileService();
+            var detail = service.GetUserById(id);
+            var model =
+                new UserProfileEdit
+                {
+                    FirstName = detail.FirstName,
+                    LastName = detail.LastName,
+                    Biography = detail.Biography,
+                    ProfilePictureURL = detail.ProfilePictureURL
+                };
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(int id, UserProfileEdit model)
+        {
+            if (!ModelState.IsValid) return View(model);
+
+            if (model.UserId != id)
+            {
+                ModelState.AddModelError("", "Id Mismatch");
+                return View(model);
+            }
+
+            var service = CreateUserProfileService();
+
+            if (service.UpdateUser(model))
+            {
+                TempData["SaveResult"] = "Your profile was updated.";
+                return RedirectToAction("Index");
+            }
+
+            ModelState.AddModelError("", "Your profile could not be updated.");
+            return View(model);
+        }
+
+        public ActionResult Details(int id)
+        {
+            var svc = CreateUserProfileService();
+            var model = svc.GetUserById(id);
+
+            return View(model);
+        }
+
+        [ActionName("Delete")]
+        public ActionResult Delete(int id)
+        {
+            var svc = CreateUserProfileService();
+            var model = svc.GetUserById(id);
+
+            return View(model);
+        }
+
+        [HttpPost]
+        [ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteProfile(int id)
+        {
+            var service = CreateUserProfileService();
+
+            service.DeleteUser(id);
+
+            TempData["SaveResult"] = "Your profile was deleted";
+
+            return RedirectToAction("Index");
         }
     }
 }

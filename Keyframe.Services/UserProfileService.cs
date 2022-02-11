@@ -38,7 +38,7 @@ namespace Keyframe.Services
                     OwnerId = _userId,
                     FirstName = model.FirstName,
                     LastName = model.LastName,
-                    Biography = model.Biodraphy,
+                    Biography = model.Biography,
                 };
             using (var ctx = new ApplicationDbContext())
             {

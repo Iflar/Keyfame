@@ -241,11 +241,19 @@
     <Content Include="Views\Role\Create.cshtml" />
     <Content Include="Views\Role\AssignRoleToUser.cshtml" />
     <Content Include="Views\Account\RegisterRole.cshtml" />
+    <Content Include="Views\UserProfile\Index.cshtml" />
+    <Content Include="Views\UserProfile\Create.cshtml" />
+    <Content Include="Views\UserProfile\Edit.cshtml" />
+    <Content Include="Views\UserProfile\Details.cshtml" />
+    <Content Include="Views\UserProfile\Delete.cshtml" />
+    <Content Include="Views\AnimRequest\Index.cshtml" />
+    <Content Include="Views\AnimRequest\Create.cshtml" />
+    <Content Include="Views\AnimRequest\Edit.cshtml" />
+    <Content Include="Views\AnimRequest\Details.cshtml" />
+    <Content Include="Views\AnimRequest\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\AnimRequest\" />
-    <Folder Include="Views\UserProfile\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

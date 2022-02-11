@@ -19,6 +19,6 @@ namespace Keyframe.Models.UserProfileModels
 
         [MaxLength(80000, ErrorMessage = "This isn't english class")]
         [MinLength(12, ErrorMessage = "Trust me, you're more interesting than that.")]
-        public string Biodraphy { get; set; }
+        public string Biography { get; set; }
     }
 }

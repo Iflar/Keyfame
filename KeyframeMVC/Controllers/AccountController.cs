@@ -10,6 +10,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using KeyframeMVC.Models;
 using Keyframe.Data;
+using Keyframe.Services;
 
 namespace KeyframeMVC.Controllers
 {
@@ -167,7 +168,7 @@ namespace KeyframeMVC.Controllers
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("RegisterChoiceRole", "Account");
                 }
                 AddErrors(result);
             }
@@ -182,8 +183,9 @@ namespace KeyframeMVC.Controllers
         [HttpGet]
         public ActionResult RegisterRole()
         {
-            ViewBag.Name = new SelectList(context.Roles.ToList(), "Name", "Name");
             ViewBag.UserName = new SelectList(context.Users.ToList(), "UserName", "UserName");
+            ViewBag.Id = new SelectList(context.Users.ToList(), "Id", "Id");
+            ViewBag.Name = new SelectList(context.Roles.ToList(), "Name", "Name");
             return View();
         }
 
@@ -194,7 +196,6 @@ namespace KeyframeMVC.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> RegisterRole(RegisterViewModel model, ApplicationUser user)
         {
-
             var userId = context.Users.Where(i => i.UserName == user.UserName).Select(s => s.Id);
             string updateId = "";
             foreach (var i in userId)
@@ -203,6 +204,30 @@ namespace KeyframeMVC.Controllers
             }
             //Assign Role To User Here
             await this.UserManager.AddToRoleAsync(updateId, model.Name);
+
+            return RedirectToAction("Index", "Home");
+        }
+
+        [AllowAnonymous]
+        [HttpGet]
+        public ActionResult RegisterChoiceRole()
+        {
+            ViewBag.Name = new SelectList(context.Roles.ToList(), "Name", "Name");
+
+            return View();
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> RegisterChoiceRole(RegisterViewModel model)
+        {
+            var userId = Guid.Parse(User.Identity.GetUserId());
+            
+            string roleName = model.Name;
+
+            //Assign Role To User Here
+            await this.UserManager.AddToRoleAsync(userId.ToString(), roleName);
 
             return RedirectToAction("Index", "Home");
         }
@@ -457,6 +482,7 @@ namespace KeyframeMVC.Controllers
 
             base.Dispose(disposing);
         }
+
 
 
        

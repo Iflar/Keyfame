@@ -20,24 +20,9 @@ namespace KeyframeMVC.Controllers
             var service = new UserProfileService(userId);
             var model = service.GetUsers();
 
-            //var thisUser = service.GetCurrentAppUser();
+            var roleName = service.GetRoleNameByUserId(userId);
 
-            //if (thisUser != null)
-            //{
-            //    int numRoles = service.GetNumberAppUserRoles(thisUser);
-
-            //    if (numRoles != 0)
-            //    {
-            //        TempData["NumberOfRoles"] = $"There are {numRoles} roles";
-            //    }
-            //    else
-            //    {
-            //        TempData["NumberOfRoles"] = "There are no roles associated  with this profile ";
-            //    }
-            //}
-
-            //TempData["UserCheck"] = "User not found";
-
+            TempData["RoleName"] = $"{roleName}";
             return View(model);
         }
 

@@ -1,11 +1,13 @@
 ﻿using Keyframe.Data;
 using Keyframe.Models.UserProfileModels;
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Mvc;
 
 namespace Keyframe.Services
@@ -23,26 +25,29 @@ namespace Keyframe.Services
 
         public UserProfileService(Guid userId)
         {
+            context = new ApplicationDbContext(); 
             _userId = userId;
         }
 
-        public ApplicationUser GetCurrentAppUser()
+        public string GetRoleNameByUserId(Guid userId)
         {
-            string userId = _userId.ToString();
 
-            var userCollection = context.Users;
+            IdentityUserRole roleContext = new IdentityUserRole();
 
-            int userCount = userCollection.Count();
+            UserManager<ApplicationUser> userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
 
+            var user = userManager.Users.Single(u => u.Id == userId.ToString());
 
-            if (userCount != 0)
-            {
-                var query = userCollection
-                .Where(e => e.Id == userId).Single(); ;
-                return query;
-            }
+            var roleName = userManager.GetRoles(user.Id).FirstOrDefault();
 
-            return null;
+            return roleName;
+        }
+
+        public string GetCurrentAppUser()
+        {
+            var userId = Guid.Parse(HttpContext.Current.User.Identity.GetUserId());
+
+            return userId.ToString();
         }
         public int GetNumberAppUserRoles(ApplicationUser user)
         {
@@ -73,6 +78,7 @@ namespace Keyframe.Services
                     FirstName = model.FirstName,
                     LastName = model.LastName,
                     Biography = model.Biography,
+                    Role = GetRoleNameByUserId(_userId)
                 };
             using (var ctx = new ApplicationDbContext())
             {
@@ -114,6 +120,7 @@ namespace Keyframe.Services
                     new UserProfileDetail
                     {
                         UserId = entity.UserId,
+                        Role = entity.Role,
                         FirstName = entity.FirstName,
                         LastName = entity.LastName,
                         Biography = entity.Biography,

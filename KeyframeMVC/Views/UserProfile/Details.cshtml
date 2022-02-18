@@ -19,6 +19,14 @@
         </dd>
 
         <dt>
+            @Html.DisplayNameFor(model => model.Role)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Role)
+        </dd>
+
+        <dt>
             @Html.DisplayNameFor(model => model.FirstName)
         </dt>
 
@@ -52,9 +60,7 @@
 
     </dl>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new {  id = Model.UserId }) |
+<p @Html.HiddenFor(m => m.Role, new { Value = "General User"})>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.UserId }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
-
-

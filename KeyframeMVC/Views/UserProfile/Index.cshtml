@@ -5,6 +5,15 @@
 }
 
 <h2>Index</h2>
+@if (TempData.ContainsKey("RoleName"))
+{
+    <div class="alert alert-danger" role="alert" id="errorPopup">
+        <button type="button" class="close" data-dismiss="alert">
+            <span>&times;</span>
+        </button>
+        @TempData["RoleName"]
+    </div>
+}
 
 <p>
     @Html.ActionLink("Create New", "Create")

@@ -1,0 +1,26 @@
+﻿@model KeyframeMVC.Models.RegisterViewModel
+@{
+    ViewBag.Title = "RegisterChoiceRole";
+}
+
+<h2>ViewBag.Title</h2>
+
+@using (Html.BeginForm("RegisterChoiceRole", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+
+    <!--Select the Role Type for the User-->
+    <div class="form-group">
+        @Html.Label("Select Role", new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.DropDownList("Name")
+        </div>
+    </div>
+    <!--Ends Here-->
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" class="btn-default" value="Register" />
+        </div>
+    </div>
+}
+

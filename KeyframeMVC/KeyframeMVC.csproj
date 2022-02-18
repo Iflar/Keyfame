@@ -252,14 +252,14 @@
     <Content Include="Views\UserProfile\Index.cshtml" />
     <Content Include="Views\UserProfile\Create.cshtml" />
     <Content Include="Views\UserProfile\Edit.cshtml" />
-    <Content Include="Views\UserProfile\Details.cshtml" />
     <Content Include="Views\UserProfile\Delete.cshtml" />
-    <Content Include="Views\Role\ChooseUserRole.cshtml" />
     <Content Include="Views\AnimRequest\Create.cshtml" />
     <Content Include="Views\AnimRequest\Edit.cshtml" />
+    <Content Include="Views\AnimRequest\Index.cshtml" />
     <Content Include="Views\AnimRequest\Details.cshtml" />
     <Content Include="Views\AnimRequest\Delete.cshtml" />
-    <Content Include="Views\AnimRequest\Index.cshtml" />
+    <None Include="Views\Account\RegisterChoiceRole.cshtml" />
+    <Content Include="Views\UserProfile\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -46,6 +46,7 @@ namespace Keyframe.Services
                             e =>
                                 new AnimRequestListItem
                                 {
+                                    RequestId = e.RequestId,
                                     Title = e.Title,
                                     Progress = e.Progress,
                                     DatePosted = e.DatePosted,

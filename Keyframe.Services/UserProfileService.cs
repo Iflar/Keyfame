@@ -1,20 +1,54 @@
 ﻿using Keyframe.Data;
 using Keyframe.Models.UserProfileModels;
+using Microsoft.AspNet.Identity.EntityFramework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Mvc;
 
 namespace Keyframe.Services
 {
     public class UserProfileService
     {
+
+        ApplicationDbContext context;
+
+        public UserProfileService()
+        {
+            context = new ApplicationDbContext();
+        }
         private readonly Guid _userId;
 
         public UserProfileService(Guid userId)
         {
             _userId = userId;
+        }
+
+        public ApplicationUser GetCurrentAppUser()
+        {
+            string userId = _userId.ToString();
+
+            var userCollection = context.Users;
+
+            int userCount = userCollection.Count();
+
+
+            if (userCount != 0)
+            {
+                var query = userCollection
+                .Where(e => e.Id == userId).Single(); ;
+                return query;
+            }
+
+            return null;
+        }
+        public int GetNumberAppUserRoles(ApplicationUser user)
+        {
+           int count = user.Roles.Count();
+
+            return count;
         }
 
         public bool UserOwnsProfile()
@@ -58,8 +92,9 @@ namespace Keyframe.Services
                             e =>
                                 new UserProfileListItem
                                 {
-                                   FirstName = e.FirstName,
-                                   LastName = e.LastName
+                                    userId = e.UserId,
+                                    FirstName = e.FirstName,
+                                    LastName = e.LastName
                                 }
                         );
 
@@ -78,6 +113,7 @@ namespace Keyframe.Services
                 return
                     new UserProfileDetail
                     {
+                        UserId = entity.UserId,
                         FirstName = entity.FirstName,
                         LastName = entity.LastName,
                         Biography = entity.Biography,
@@ -85,6 +121,7 @@ namespace Keyframe.Services
                     };
             }
         }
+
         public bool UpdateUser(UserProfileEdit model)
         {
             using (var ctx = new ApplicationDbContext())
@@ -115,5 +152,6 @@ namespace Keyframe.Services
                 return ctx.SaveChanges() == 1;
             }
         }
+
     }
 }

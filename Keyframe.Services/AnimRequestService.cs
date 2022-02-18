@@ -19,14 +19,14 @@ namespace Keyframe.Services
 
         public bool CreateRequest(AnimRequestCreate model)
         {
-            
+
             var entity =
                 new AnimRequest()
                 {
                     OwnerId = _userId,
                     Title = model.Title,
                     Description = model.Description,
-                    ImageURLs = model.ImageURLs
+                    DatePosted = DateTime.Now
                 };
             using (var ctx = new ApplicationDbContext())
             {
@@ -67,6 +67,7 @@ namespace Keyframe.Services
                 return
                     new AnimRequestDetail
                     {
+                        RequestId = entity.RequestId,
                         Title = entity.Title,
                         Description = entity.Description,
                         Progress = entity.Progress,
@@ -91,7 +92,7 @@ namespace Keyframe.Services
                 return ctx.SaveChanges() == 1;
             }
         }
-        public bool DeleteUser(int userId)
+        public bool DeleteRequest(int userId)
         {
             using (var ctx = new ApplicationDbContext())
             {

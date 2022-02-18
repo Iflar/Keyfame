@@ -9,6 +9,7 @@ namespace Keyframe.Models.AnimRequestModels
 {
     public class AnimRequestListItem
     {
+        public int RequestId { get; set; }
         public string Title { get; set; }
         public Progress Progress { get; set; }
         public DateTime DatePosted { get; set; }

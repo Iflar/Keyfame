@@ -17,7 +17,7 @@ namespace Keyframe.Models.AnimRequestModels
         [MaxLength(900000, ErrorMessage = "Description is far too long")]
         [MinLength(20, ErrorMessage = "Must be more descriptive")]
         public string Description { get; set; }
-        [Required]
-        public List<string> ImageURLs { get; set; }
+
+        public DateTime DateCreated { get; set; }
     }
 }

@@ -7,13 +7,13 @@ namespace Keyframe.Data.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.0-30225")]
-    public sealed partial class initialMigration : IMigrationMetadata
+    public sealed partial class AnimRequestUpdate2 : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(initialMigration));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(AnimRequestUpdate2));
         
         string IMigrationMetadata.Id
         {
-            get { return "202202102328291_initialMigration"; }
+            get { return "202202172333590_AnimRequestUpdate2"; }
         }
         
         string IMigrationMetadata.Source

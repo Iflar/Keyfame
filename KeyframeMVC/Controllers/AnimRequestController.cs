@@ -15,8 +15,8 @@ namespace KeyframeMVC.Controllers
         public ActionResult Index()
         {
             var userId = Guid.Parse(User.Identity.GetUserId());
-            var service = new UserProfileService(userId);
-            var model = service.GetUsers();
+            var service = new AnimRequestService(userId);
+            var model = service.GetRequests();
 
             return View(model);
         }
@@ -112,11 +112,11 @@ namespace KeyframeMVC.Controllers
         [HttpPost]
         [ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteProfile(int id)
+        public ActionResult DeleteAnimRequest(int id)
         {
             var service = CreateAnimRequestService();
 
-            service.DeleteUser(id);
+            service.DeleteRequest(id);
 
             TempData["SaveResult"] = "Your Request was deleted";
 

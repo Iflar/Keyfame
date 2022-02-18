@@ -26,7 +26,7 @@ namespace Keyframe.Data
         public string Title { get; set; }
         [Required]
         public string Description { get; set; }
-        [Required]
+        
         public List<string> ImageURLs { get; set; }
         public Progress Progress { get; set; }
         public DateTime DatePosted { get; set; }

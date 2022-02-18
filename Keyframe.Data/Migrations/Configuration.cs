@@ -10,7 +10,6 @@ namespace Keyframe.Data.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
-            ContextKey = "Keyframe.Data.ApplicationDbContext";
         }
 
         protected override void Seed(Keyframe.Data.ApplicationDbContext context)

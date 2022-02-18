@@ -56,13 +56,21 @@
   <ItemGroup>
     <Compile Include="AnimRequest.cs" />
     <Compile Include="IdentityModels.cs" />
-    <Compile Include="Migrations\202202020200436_InitialCreate.cs" />
-    <Compile Include="Migrations\202202020200436_InitialCreate.Designer.cs">
-      <DependentUpon>202202020200436_InitialCreate.cs</DependentUpon>
+    <Compile Include="Migrations\202202170132594_InitialMigration.cs" />
+    <Compile Include="Migrations\202202170132594_InitialMigration.Designer.cs">
+      <DependentUpon>202202170132594_InitialMigration.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202202102328291_initialMigration.cs" />
-    <Compile Include="Migrations\202202102328291_initialMigration.Designer.cs">
-      <DependentUpon>202202102328291_initialMigration.cs</DependentUpon>
+    <Compile Include="Migrations\202202172329014_AnimRequstUpdt.cs" />
+    <Compile Include="Migrations\202202172329014_AnimRequstUpdt.Designer.cs">
+      <DependentUpon>202202172329014_AnimRequstUpdt.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202202172333590_AnimRequestUpdate2.cs" />
+    <Compile Include="Migrations\202202172333590_AnimRequestUpdate2.Designer.cs">
+      <DependentUpon>202202172333590_AnimRequestUpdate2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202202180009570_AddedRequetIdToAnimReqestDetail.cs" />
+    <Compile Include="Migrations\202202180009570_AddedRequetIdToAnimReqestDetail.Designer.cs">
+      <DependentUpon>202202180009570_AddedRequetIdToAnimReqestDetail.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -74,11 +82,17 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202202020200436_InitialCreate.resx">
-      <DependentUpon>202202020200436_InitialCreate.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202202170132594_InitialMigration.resx">
+      <DependentUpon>202202170132594_InitialMigration.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202202102328291_initialMigration.resx">
-      <DependentUpon>202202102328291_initialMigration.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202202172329014_AnimRequstUpdt.resx">
+      <DependentUpon>202202172329014_AnimRequstUpdt.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202202172333590_AnimRequestUpdate2.resx">
+      <DependentUpon>202202172333590_AnimRequestUpdate2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202202180009570_AddedRequetIdToAnimReqestDetail.resx">
+      <DependentUpon>202202180009570_AddedRequetIdToAnimReqestDetail.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

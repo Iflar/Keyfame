@@ -11,6 +11,7 @@ namespace Keyframe.Data
     {
         [Key]
         public int UserId { get; set; }
+        public string Role { get; set; }
         public Guid OwnerId { get; set; }
         [Required]
         public string FirstName { get; set; }

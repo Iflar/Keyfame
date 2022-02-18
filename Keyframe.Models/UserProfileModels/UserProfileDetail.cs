@@ -8,7 +8,7 @@ namespace Keyframe.Models.UserProfileModels
 {
     public class UserProfileDetail
     {
-        public int ProfileId { get; set; }
+        public int UserId { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Biography { get; set; }

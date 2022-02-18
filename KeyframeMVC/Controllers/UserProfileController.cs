@@ -20,6 +20,24 @@ namespace KeyframeMVC.Controllers
             var service = new UserProfileService(userId);
             var model = service.GetUsers();
 
+            //var thisUser = service.GetCurrentAppUser();
+
+            //if (thisUser != null)
+            //{
+            //    int numRoles = service.GetNumberAppUserRoles(thisUser);
+
+            //    if (numRoles != 0)
+            //    {
+            //        TempData["NumberOfRoles"] = $"There are {numRoles} roles";
+            //    }
+            //    else
+            //    {
+            //        TempData["NumberOfRoles"] = "There are no roles associated  with this profile ";
+            //    }
+            //}
+
+            //TempData["UserCheck"] = "User not found";
+
             return View(model);
         }
 
@@ -41,7 +59,7 @@ namespace KeyframeMVC.Controllers
 
             if (service.UserOwnsProfile())
             {
-                ViewBag.ErrorMessag = "You already own a profile";
+                TempData["ExceededProfileCount"] = "You already have a profile.";
                 return View(model);
             }
 

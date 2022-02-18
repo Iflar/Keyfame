@@ -3,7 +3,7 @@ namespace Keyframe.Data.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class InitialCreate : DbMigration
+    public partial class InitialMigration : DbMigration
     {
         public override void Up()
         {
@@ -12,6 +12,7 @@ namespace Keyframe.Data.Migrations
                 c => new
                     {
                         RequestId = c.Int(nullable: false, identity: true),
+                        OwnerId = c.Guid(nullable: false),
                         Title = c.String(nullable: false),
                         Description = c.String(nullable: false),
                         Progress = c.Int(nullable: false),
@@ -29,6 +30,7 @@ namespace Keyframe.Data.Migrations
                 c => new
                     {
                         UserId = c.Int(nullable: false, identity: true),
+                        Role = c.String(),
                         OwnerId = c.Guid(nullable: false),
                         FirstName = c.String(nullable: false),
                         LastName = c.String(nullable: false),

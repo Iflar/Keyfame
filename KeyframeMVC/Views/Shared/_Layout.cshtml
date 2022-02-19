@@ -19,17 +19,16 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                    @Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
                 </div>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
-                        <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                        <li>@Html.ActionLink("About", "About", "Home")</li>
-                        <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                         <li>@Html.ActionLink("Create User", "Create", "UserProfile")</li>
-                        <li>@Html.ActionLink("Users", "Index", "UserProfile")</li>
-                        <li>@Html.ActionLink("Create AnimRequest", "Create", "AnimRequest")</li>
-                        <li>@Html.ActionLink("Test Feature", "RegisterChoiceRole", "Account")</li>
+                        <li>@Html.ActionLink("My Profile", "Index", "UserProfile")</li>
+                        <li>@Html.ActionLink("Requests Made", "Index", "AnimRequest")</li>
+                        <li>@Html.ActionLink("Animation Requests", "OtherRequestIndex", "AnimRequest")</li>
+                        
+                        
                     </ul>
                     @Html.Partial("_LoginPartial")
                 </div>
@@ -41,7 +40,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            <p>&copy; @DateTime.Now.Year - Keyframe</p>
         </footer>
     </div>
 

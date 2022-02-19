@@ -13,5 +13,9 @@ namespace Keyframe.Models.AnimRequestModels
         public Progress Progress { get; set; }
         public DateTime? DateAccepted { get; set; }
         public DateTime? DateCompleted { get; set; }
+
+        public bool IsAccepted { get; set; }
+
+        public bool IsComplete { get; set; }
     }
 }

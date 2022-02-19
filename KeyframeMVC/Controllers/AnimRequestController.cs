@@ -16,6 +16,15 @@ namespace KeyframeMVC.Controllers
         {
             var userId = Guid.Parse(User.Identity.GetUserId());
             var service = new AnimRequestService(userId);
+            var model = service.GetMyRequests();
+
+            return View(model);
+        }
+
+        public ActionResult OtherRequestIndex()
+        {
+            var userId = Guid.Parse(User.Identity.GetUserId());
+            var service = new AnimRequestService(userId);
             var model = service.GetRequests();
 
             return View(model);
@@ -46,14 +55,6 @@ namespace KeyframeMVC.Controllers
             ModelState.AddModelError("", "Request could not be created.");
             return View(model);
         }
-
-        private AnimRequestService CreateAnimRequestService()
-        {
-            var userId = Guid.Parse(User.Identity.GetUserId());
-            var service = new AnimRequestService(userId);
-            return service;
-        }
-
         public ActionResult Edit(int id)
         {
             var service = CreateAnimRequestService();
@@ -74,11 +75,6 @@ namespace KeyframeMVC.Controllers
         {
             if (!ModelState.IsValid) return View(model);
 
-            if (model.RequestId != id)
-            {
-                ModelState.AddModelError("", "Id Mismatch");
-                return View(model);
-            }
 
             var service = CreateAnimRequestService();
 
@@ -121,6 +117,13 @@ namespace KeyframeMVC.Controllers
             TempData["SaveResult"] = "Your Request was deleted";
 
             return RedirectToAction("Index");
+        }
+
+        private AnimRequestService CreateAnimRequestService()
+        {
+            var userId = Guid.Parse(User.Identity.GetUserId());
+            var service = new AnimRequestService(userId);
+            return service;
         }
     }
 }

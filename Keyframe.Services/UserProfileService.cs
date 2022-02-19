@@ -124,9 +124,18 @@ namespace Keyframe.Services
                         FirstName = entity.FirstName,
                         LastName = entity.LastName,
                         Biography = entity.Biography,
-                        ProfilePictureURL = entity.ProfilePictureURL
+                        ProfilePictureURL = entity.ProfilePictureURL,
                     };
             }
+        }
+
+        public UserProfile GetWholeUserById(int id)
+        {
+            var entity =
+                    context
+                        .UsersProfiles
+                        .Single(e => e.UserId == id && e.OwnerId == _userId);
+            return entity;
         }
 
         public bool UpdateUser(UserProfileEdit model)
@@ -160,5 +169,31 @@ namespace Keyframe.Services
             }
         }
 
+        public AnimRequest GetRequestById(int Id)
+        {
+            var entity = context.Requests.Single(e => e.RequestId == Id);
+
+            return entity;
+
+        }
+
+        public bool AcceptRequest(int requestId, int userId)
+        {
+            var request = GetRequestById(requestId);
+            var user  = GetWholeUserById(userId);
+
+            int userRequestsCount = user.Requests.Count();
+
+            user.Requests.Add(request);
+            request.DateAccepted = DateTime.Now;
+            request.IsAccepted = true;
+
+            if (request.IsAccepted && userRequestsCount == userRequestsCount + 1)
+            {
+                return false;
+            }
+
+            return true;
+        }
     }
 }

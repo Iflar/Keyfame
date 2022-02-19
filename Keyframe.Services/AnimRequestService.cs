@@ -19,7 +19,6 @@ namespace Keyframe.Services
 
         public bool CreateRequest(AnimRequestCreate model)
         {
-
             var entity =
                 new AnimRequest()
                 {
@@ -35,6 +34,29 @@ namespace Keyframe.Services
             }
         }
         public IEnumerable<AnimRequestListItem> GetRequests()
+        {
+            using (var ctx = new ApplicationDbContext())
+            {
+                var query =
+                    ctx
+                        .Requests
+                        .Where(e => e.OwnerId != _userId && e.IsAccepted == false)
+                        .Select(
+                            e =>
+                                new AnimRequestListItem
+                                {
+                                    RequestId = e.RequestId,
+                                    Title = e.Title,
+                                    Progress = e.Progress,
+                                    DatePosted = e.DatePosted,
+                                    DateCompleted = e.DateCompleted
+                                }
+                        );
+
+                return query.ToArray();
+            }
+        }
+        public IEnumerable<AnimRequestListItem> GetMyRequests()
         {
             using (var ctx = new ApplicationDbContext())
             {
@@ -64,7 +86,7 @@ namespace Keyframe.Services
                 var entity =
                     ctx
                         .Requests
-                        .Single(e => e.RequestId == id && e.OwnerId == _userId);
+                        .Single(e => e.RequestId == id);
                 return
                     new AnimRequestDetail
                     {
@@ -85,7 +107,7 @@ namespace Keyframe.Services
                 var entity =
                     ctx
                         .Requests
-                        .Single(e => e.RequestId == model.RequestId && e.OwnerId == _userId);
+                        .Single(e => e.RequestId == model.RequestId);
                 entity.Progress = model.Progress;
                 entity.DateAccepted = model.DateAccepted;
                 entity.DateCompleted = model.DateCompleted;
@@ -100,7 +122,7 @@ namespace Keyframe.Services
                 var entity =
                     ctx
                         .Requests
-                        .Single(e => e.RequestId == userId && e.OwnerId == _userId);
+                        .Single(e => e.RequestId == userId);
 
                 ctx.Requests.Remove(entity);
 

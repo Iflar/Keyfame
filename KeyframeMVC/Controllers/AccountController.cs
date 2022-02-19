@@ -229,7 +229,7 @@ namespace KeyframeMVC.Controllers
             //Assign Role To User Here
             await this.UserManager.AddToRoleAsync(userId.ToString(), roleName);
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Create", "UserProfile");
         }
 
         //

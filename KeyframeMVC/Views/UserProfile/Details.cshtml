@@ -4,7 +4,7 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<h2>Profile Page</h2>
 
 <div>
     <h4>UserProfileDetail</h4>
@@ -60,7 +60,15 @@
 
     </dl>
 </div>
-<p @Html.HiddenFor(m => m.Role, new { Value = "General User"})>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.UserId }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.UserId })
+        @if(ViewBag.RoleName == "General User")
+            {
+                @Html.ActionLink("Create Request", "Create", "AnimRequest")
+            }
+    </p>
+
+
+
+

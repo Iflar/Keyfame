@@ -105,8 +105,14 @@ namespace KeyframeMVC.Controllers
 
         public ActionResult Details(int id)
         {
-            var svc = CreateUserProfileService();
-            var model = svc.GetUserById(id);
+            var service = CreateUserProfileService();
+            var model = service.GetUserById(id);
+
+            var userId = Guid.Parse(User.Identity.GetUserId());
+
+            var roleName = service.GetRoleNameByUserId(userId);
+
+            ViewBag.RoleName = roleName;
 
             return View(model);
         }
@@ -132,6 +138,20 @@ namespace KeyframeMVC.Controllers
             TempData["SaveResult"] = "Your profile was deleted";
 
             return RedirectToAction("Index");
+        }
+
+        public ActionResult AcceptRequest(int requestId, int profileId)
+        {
+            var service = CreateUserProfileService();
+
+            if(service.AcceptRequest(requestId, profileId))
+            {
+                TempData["AcceptResult"] = "Request Accepted";
+                return RedirectToAction("Index");
+            }
+
+            ModelState.AddModelError("", "Something went wrong.");
+            return View();
         }
     }
 }

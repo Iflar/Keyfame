@@ -16,5 +16,7 @@ namespace Keyframe.Models.AnimRequestModels
         public DateTime DatePosted { get; set; }
         public DateTime? DateAccepted { get; set; }
         public DateTime? DateCompleted { get; set; }
+        public bool IsAccepted { get; set; }
+        public bool IsComplete { get; set; }
     }
 }

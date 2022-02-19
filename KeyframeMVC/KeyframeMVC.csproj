@@ -191,6 +191,7 @@
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
+    <Content Include="Content\bootstrap-Vapor.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />
@@ -260,6 +261,8 @@
     <Content Include="Views\AnimRequest\Delete.cshtml" />
     <None Include="Views\Account\RegisterChoiceRole.cshtml" />
     <Content Include="Views\UserProfile\Details.cshtml" />
+    <Content Include="Views\AnimRequest\OtherRequestIndex.cshtml" />
+    <Content Include="Views\UserProfile\AcceptRequest.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

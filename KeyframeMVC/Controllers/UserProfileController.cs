@@ -85,12 +85,6 @@ namespace KeyframeMVC.Controllers
         {
             if (!ModelState.IsValid) return View(model);
 
-            if (model.UserId != id)
-            {
-                ModelState.AddModelError("", "Id Mismatch");
-                return View(model);
-            }
-
             var service = CreateUserProfileService();
 
             if (service.UpdateUser(model))
@@ -140,11 +134,11 @@ namespace KeyframeMVC.Controllers
             return RedirectToAction("Index");
         }
 
-        public ActionResult AcceptRequest(int requestId, int profileId)
+        public ActionResult AcceptRequest(int requestId)
         {
             var service = CreateUserProfileService();
 
-            if(service.AcceptRequest(requestId, profileId))
+            if(service.AcceptRequest(requestId))
             {
                 TempData["AcceptResult"] = "Request Accepted";
                 return RedirectToAction("Index");
@@ -153,5 +147,7 @@ namespace KeyframeMVC.Controllers
             ModelState.AddModelError("", "Something went wrong.");
             return View();
         }
+
+
     }
 }

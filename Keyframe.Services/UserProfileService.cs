@@ -1,4 +1,5 @@
 ﻿using Keyframe.Data;
+using Keyframe.Models.AnimRequestModels;
 using Keyframe.Models.UserProfileModels;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
@@ -14,6 +15,7 @@ namespace Keyframe.Services
 {
     public class UserProfileService
     {
+        public UserProfile MainLayoutViewModel { get; set; }
 
         ApplicationDbContext context;
 
@@ -25,7 +27,7 @@ namespace Keyframe.Services
 
         public UserProfileService(Guid userId)
         {
-            context = new ApplicationDbContext(); 
+            context = new ApplicationDbContext();
             _userId = userId;
         }
 
@@ -51,7 +53,7 @@ namespace Keyframe.Services
         }
         public int GetNumberAppUserRoles(ApplicationUser user)
         {
-           int count = user.Roles.Count();
+            int count = user.Roles.Count();
 
             return count;
         }
@@ -78,7 +80,7 @@ namespace Keyframe.Services
                     FirstName = model.FirstName,
                     LastName = model.LastName,
                     Biography = model.Biography,
-                    Role = GetRoleNameByUserId(_userId)
+                    Role = GetRoleNameByUserId(_userId),
                 };
             using (var ctx = new ApplicationDbContext())
             {
@@ -129,12 +131,12 @@ namespace Keyframe.Services
             }
         }
 
-        public UserProfile GetWholeUserById(int id)
+        public UserProfile GetWholeUser()
         {
             var entity =
                     context
                         .UsersProfiles
-                        .Single(e => e.UserId == id && e.OwnerId == _userId);
+                        .Single(e => e.OwnerId == _userId);
             return entity;
         }
 
@@ -145,7 +147,7 @@ namespace Keyframe.Services
                 var entity =
                     ctx
                         .UsersProfiles
-                        .Single(e => e.UserId == model.UserId && e.OwnerId == _userId);
+                        .Single(e => e.OwnerId == _userId);
                 entity.FirstName = model.FirstName;
                 entity.LastName = model.LastName;
                 entity.Biography = model.Biography;
@@ -177,23 +179,52 @@ namespace Keyframe.Services
 
         }
 
-        public bool AcceptRequest(int requestId, int userId)
+        public bool AcceptRequest(int requestId)
         {
             var request = GetRequestById(requestId);
-            var user  = GetWholeUserById(userId);
-
-            int userRequestsCount = user.Requests.Count();
+            var user = GetWholeUser();
 
             user.Requests.Add(request);
+
+            context.SaveChanges();
+
             request.DateAccepted = DateTime.Now;
             request.IsAccepted = true;
 
-            if (request.IsAccepted && userRequestsCount == userRequestsCount + 1)
-            {
-                return false;
-            }
+            request.UserProfiles.Add(user);
 
-            return true;
+            return context.SaveChanges() >= 1;
+
+        }
+
+        public IEnumerable<AnimRequestListItem> GetAcceptedRequests()
+        {
+            var acceptedRequests =
+                context.Requests
+                .Where(r => r.IsAccepted == true).ToArray();
+
+            var user = GetWholeUser();
+
+            List<AnimRequestListItem> userAcceptedRequest = new List<AnimRequestListItem>();
+
+            foreach (var request in acceptedRequests)
+            {
+                var userProfile = request.UserProfiles.Single(p => p.UserId == user.UserId);
+
+                if (userProfile != null)
+                {
+                    var animRequest = new AnimRequestListItem()
+                    {
+                        RequestId = request.RequestId,
+                        Title = request.Title,
+                        Progress = request.Progress,
+                        DatePosted = request.DatePosted,
+                        DateCompleted = request.DateCompleted
+                    };
+                    userAcceptedRequest.Add(animRequest);
+                }
+            }
+            return userAcceptedRequest;
         }
     }
 }

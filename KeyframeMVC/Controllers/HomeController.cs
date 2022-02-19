@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Keyframe.Services;
+using Microsoft.AspNet.Identity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -11,6 +13,14 @@ namespace KeyframeMVC.Controllers
     {
         public ActionResult Index()
         {
+            var service = CreateUserProfileService();
+
+            var userId = Guid.Parse(User.Identity.GetUserId());
+
+            var roleName = service.GetRoleNameByUserId(userId);
+
+            ViewBag.RoleName = roleName;
+
             return View();
         }
 
@@ -26,6 +36,12 @@ namespace KeyframeMVC.Controllers
             ViewBag.Message = "Your contact page.";
 
             return View();
+        }
+        private UserProfileService CreateUserProfileService()
+        {
+            var userId = Guid.Parse(User.Identity.GetUserId());
+            var service = new UserProfileService(userId);
+            return service;
         }
     }
 }

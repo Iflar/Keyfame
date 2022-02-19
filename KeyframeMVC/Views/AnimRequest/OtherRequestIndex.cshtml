@@ -26,27 +26,30 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.RequestId)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Title)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DatePosted)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DateCompleted)
-        </td>
-        <td>
-            @Html.ActionLink("Accept Request", "AcceptRequest", new { requestId = item.RequestId, profileId = item.RequestId }) |
-            @Html.ActionLink("Details", "Details", new { id = item.RequestId }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.RequestId })
-
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                <div class="card text-center border-primary border-2">
+                    <div class="card-header">
+                        @Html.DisplayFor(modelItem => item.Title)
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">General discription</h5>
+                        <p class="card-text">@Html.DisplayFor(modelItem => item.RequestId)</p>
+                        @Html.ActionLink("Accept Request", "AcceptRequest", "UserProfile", new { requestId = item.RequestId }, new { @class = "btn btn-primary" })
+                        @Html.ActionLink("Details", "Details", new { id = item.RequestId }, new { @class = "btn btn-primary" })
+                        @Html.ActionLink("Delete", "Delete", new { id = item.RequestId }, new { @class = "btn btn-primary" })
+                    </div>
+                    <div class="card-footer text-muted">
+                        @Html.DisplayFor(modelItem => item.DatePosted)
+                    </div>
+                </div>
+            </td>
+        </tr>
+    }
 
 </table>
+
+
+ |

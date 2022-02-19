@@ -6,12 +6,39 @@
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
 
 </head>
 <body>
+
     @if (Request.IsAuthenticated)
     {
-        <div class="navbar navbar-inverse navbar-fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="@Url.Action("Index", "Home")">Home</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li>@Html.ActionLink("Create User", "Create", "UserProfile")</li> |
+                    <li>@Html.ActionLink("My Profile", "Index", "UserProfile")</li> |
+                    <li>@Html.ActionLink("Requests Made", "Index", "AnimRequest")</li> |
+                    <li>@Html.ActionLink("Avalible Requests", "OtherRequestIndex", "AnimRequest")</li> |
+                    <li>@Html.ActionLink("Accepted Requests", "AcceptedRequests", "AnimRequest")</li> |
+                    <li>@Html.ActionLink("Request Animation", "Create", "AnimRequest")</li>
+                </ul>
+            </div>
+        </div>
+        @Html.Partial("_LoginPartial") 
+    </nav>
+
+    }
+
+
+
+        @*<div class="navbar navbar-inverse navbar-fixed-top">
             <div class="container">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -26,26 +53,40 @@
                         <li>@Html.ActionLink("Create User", "Create", "UserProfile")</li>
                         <li>@Html.ActionLink("My Profile", "Index", "UserProfile")</li>
                         <li>@Html.ActionLink("Requests Made", "Index", "AnimRequest")</li>
-                        <li>@Html.ActionLink("Animation Requests", "OtherRequestIndex", "AnimRequest")</li>
-                        
-                        
+                        <li>@Html.ActionLink("Avalible Requests", "OtherRequestIndex", "AnimRequest")</li>
+                        <li>@Html.ActionLink("Accepted Requests", "AcceptedRequests", "AnimRequest")</li>
+                        <li>@Html.ActionLink("Request Animation", "Create", "AnimRequest")</li>
                     </ul>
                     @Html.Partial("_LoginPartial")
                 </div>
             </div>
-        </div>
-    }
+        </div>*@
 
     <div class="container body-content">
         @RenderBody()
         <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - Keyframe</p>
-        </footer>
-    </div>
+        <div>
+            <footer class="footer  fixed-bottom">
+                <p>&copy; @DateTime.Now.Year - Keyframe</p>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
+
+            </footer>
+        </div>
+    </div>
+    <style>
+        footer{
+            text-align: center;
+        }
+
+        body {
+            height: 100vh;
+        }
+        a {
+            text-decoration: none;
+            color: black;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+    </style>
     @RenderSection("scripts", required: false)
 </body>
 </html>

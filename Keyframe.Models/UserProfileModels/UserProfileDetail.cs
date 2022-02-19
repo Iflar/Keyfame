@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Keyframe.Data;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,5 +15,6 @@ namespace Keyframe.Models.UserProfileModels
         public string LastName { get; set; }
         public string Biography { get; set; }
         public string ProfilePictureURL { get; set; }
+        public HashSet<AnimRequest> AecceptedRequests { get; set; }
     }
 }

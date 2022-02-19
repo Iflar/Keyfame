@@ -72,6 +72,14 @@
     <Compile Include="Migrations\202202180009570_AddedRequetIdToAnimReqestDetail.Designer.cs">
       <DependentUpon>202202180009570_AddedRequetIdToAnimReqestDetail.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202202191600191_AddedAcceptedRequestsToUserProfile.cs" />
+    <Compile Include="Migrations\202202191600191_AddedAcceptedRequestsToUserProfile.Designer.cs">
+      <DependentUpon>202202191600191_AddedAcceptedRequestsToUserProfile.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202202191703388_update.cs" />
+    <Compile Include="Migrations\202202191703388_update.Designer.cs">
+      <DependentUpon>202202191703388_update.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserProfile.cs" />
@@ -93,6 +101,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202202180009570_AddedRequetIdToAnimReqestDetail.resx">
       <DependentUpon>202202180009570_AddedRequetIdToAnimReqestDetail.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202202191600191_AddedAcceptedRequestsToUserProfile.resx">
+      <DependentUpon>202202191600191_AddedAcceptedRequestsToUserProfile.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202202191703388_update.resx">
+      <DependentUpon>202202191703388_update.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

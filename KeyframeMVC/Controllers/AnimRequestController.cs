@@ -23,9 +23,19 @@ namespace KeyframeMVC.Controllers
 
         public ActionResult OtherRequestIndex()
         {
+            
             var userId = Guid.Parse(User.Identity.GetUserId());
             var service = new AnimRequestService(userId);
             var model = service.GetRequests();
+
+            return View(model);
+        }
+
+        public ActionResult AcceptedRequests()
+        {
+            var userId = Guid.Parse(User.Identity.GetUserId());
+            var service = new UserProfileService(userId);
+            var model = service.GetAcceptedRequests();
 
             return View(model);
         }

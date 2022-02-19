@@ -26,5 +26,6 @@ namespace Keyframe.Data
             this.Requests = new HashSet<AnimRequest>();
         }
         public virtual ICollection<AnimRequest> Requests { get; set; }
+
     }
 }
